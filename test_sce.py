@@ -154,9 +154,9 @@ def extract_subtrees_withvalue(root_node, source_code: bytes, max_depth: int):
     return counter
 
 
-def compute_cte_norm_struct(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
+def compute_sce_norm_struct(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     """
-    Compute normalized CTE via dividing by log2(|U|).
+    Compute normalized SCE via dividing by log2(|U|).
     Inputs: code strings sql_A, sql_B.
     """
     parser = get_parser(lang)
@@ -192,13 +192,13 @@ def compute_cte_norm_struct(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     entropy_Q = -sum(q * math.log2(q) for q in Q)
     entropy_Max= max(entropy_P,entropy_Q)
     
-    # 6. Compute normalized CTE
-    cte_norm = entropy_Q / cross_entropy if cross_entropy > 0 else 0.0
-    return cte_norm
+    # 6. Compute normalized SCE
+    # _entropy if cross_entropy > 0 else 0.0
+    return sce_norm
 
 def compute_cte_jsd_struct(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     """
-    Compute Cross Topological JSD (bounded [0,1]).
+    Compute JSD (bounded [0,1]).
     """
     parser = get_parser(lang)
     root_A = parser.parse(bytes(sql_A, "utf8")).root_node
@@ -234,9 +234,9 @@ def compute_cte_jsd_struct(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
 
     return 1-jsd_val
 
-def compute_cte_norm_value(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
+def compute_sce_norm_value(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     """
-    Compute normalized CTE via dividing by log2(|U|).
+    Compute normalized SCE via dividing by log2(|U|).
     Inputs: code strings sql_A, sql_B.
     """
     parser = get_parser(lang)
@@ -272,10 +272,10 @@ def compute_cte_norm_value(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     entropy_Q = -sum(q * math.log2(q) for q in Q)
     entropy_Max= max(entropy_P,entropy_Q)
     
-    # 6. Compute normalized CTE
-    cte_norm = entropy_Q / cross_entropy if cross_entropy > 0 else 0.0
+    # 6. Compute normalized SCE
+    sce_norm = entropy_Q / cross_entropy if cross_entropy > 0 else 0.0
 
-    return cte_norm
+    return sce_norm
 
 def compute_cte_jsd_value(lang,sql_A, sql_B, max_depth=30, eps=1e-10):
     """
@@ -338,6 +338,6 @@ else:
 """
 lang = "python"
 print(compute_cte_jsd_struct(lang,code1, code2))
-print(compute_cte_norm_struct(lang,code1, code2))
+print(compute_sce_norm_struct(lang,code1, code2))
 print(compute_cte_jsd_value(lang,code1, code2))
-print(compute_cte_norm_value(lang,code1, code2))
+print(compute_sce_norm_value(lang,code1, code2))
