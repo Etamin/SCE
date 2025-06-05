@@ -1,6 +1,6 @@
-# CTE Metrics Quick Test
+# SCE Metrics Quick Test
 
-A minimal setup to compute Cross Topological Entropy (CTE) and JSD-based similarity between two code snippets using Tree-Sitter.
+A minimal setup to compute Structural Cross Entropy (SCE) and JSD-based similarity between two code snippets using Tree-Sitter.
 
 ---
 
@@ -26,25 +26,25 @@ A minimal setup to compute Cross Topological Entropy (CTE) and JSD-based similar
 
 ## Quick Start
 
-1. **Save the code** in a file named `cte_metrics.py`. This file should contain all the functions defined previously:
+1. **Save the code** in a file named `test_sce.py`. This file should contain all the functions defined previously:
 
    * `_normalize_vector`
    * `kullback_leibler_divergence`
    * `jensen_shannon_divergence`
    * `extract_subtrees`
    * `extract_subtrees_withvalue`
-   * `compute_cte_norm_struct`
+   * `compute_sce_norm_struct`
    * `compute_cte_jsd_struct`
-   * `compute_cte_norm_value`
+   * `compute_sce_norm_value`
    * `compute_cte_jsd_value`
 
-2. **Create a short test script** (e.g., `test_cte.py`) with the following content:
+2. **Create a short test script** (e.g., `test_sample.py`) with the following content:
 
    ```python
-   from cte_metrics import (
-       compute_cte_norm_struct,
+   from test_sce import (
+       compute_sce_norm_struct,
        compute_cte_jsd_struct,
-       compute_cte_norm_value,
+       compute_sce_norm_value,
        compute_cte_jsd_value,
    )
 
@@ -68,24 +68,24 @@ A minimal setup to compute Cross Topological Entropy (CTE) and JSD-based similar
    lang = "python"
    max_depth = 10
 
-   print("CTE-JSD Struct:", compute_cte_jsd_struct(lang, code1, code2, max_depth))
-   print("CTE-Norm Struct:", compute_cte_norm_struct(lang, code1, code2, max_depth))
-   print("CTE-JSD Value:", compute_cte_jsd_value(lang, code1, code2, max_depth))
-   print("CTE-Norm Value:", compute_cte_norm_value(lang, code1, code2, max_depth))
+   print("JSD Struct:", compute_cte_jsd_struct(lang, code1, code2, max_depth))
+   print("SCE-Norm Struct:", compute_sce_norm_struct(lang, code1, code2, max_depth))
+   print("JSD Value:", compute_cte_jsd_value(lang, code1, code2, max_depth))
+   print("SCE-Norm Value:", compute_sce_norm_value(lang, code1, code2, max_depth))
    ```
 
 3. **Run the test**:
 
    ```bash
-   python test_cte.py
+   python test.py
    ```
 
 You should see four floating-point scores printed to the console:
 
-* Structural JSD similarity (CTE-JSD Struct)
-* Structural normalized CTE (CTE-Norm Struct)
-* Value-based JSD similarity (CTE-JSD Value)
-* Value-based normalized CTE (CTE-Norm Value)
+* Structural JSD similarity (JSD Struct)
+* Structural normalized SCE (SCE-Norm Struct)
+* Value-based JSD similarity (JSD Value)
+* Value-based normalized SCE (SCE-Norm Value)
 
 ---
 
@@ -120,10 +120,10 @@ You should see four floating-point scores printed to the console:
 ## Example Output
 
 ```text
-CTE-JSD Struct:     0.871320
-CTE-Norm Struct:    0.833333
-CTE-JSD Value:      0.785398
-CTE-Norm Value:     0.800000
+JSD Struct:     0.871320
+SCE-Norm Struct:    0.833333
+JSD Value:      0.785398
+SCE-Norm Value:     0.800000
 ```
 
 *(Values may vary slightly depending on AST depth and implementation details.)*
