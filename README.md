@@ -77,7 +77,7 @@ A minimal setup to compute Structural Cross Entropy (SCE) and JSD-based similari
 3. **Run the test**:
 
    ```bash
-   python test.py
+   python test_sample.py
    ```
 
 You should see four floating-point scores printed to the console:
